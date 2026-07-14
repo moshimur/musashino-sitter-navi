@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <meta name="theme-color" content="#172d36">
-  <meta name="description" content="住所と利用条件から、武蔵野市のベビーシッター補助制度で使える個人プロフィールと東京都認定事業者を探せます。">
+  <meta name="description" content="東京都認定の37事業者を、住所や条件から探せる非公式ガイドです">
   <title>武蔵野シッターナビ</title>
   <style>
     :root {
@@ -676,6 +676,15 @@
     footer ul { margin: 12px 0; padding-left: 1.35rem; }
     footer li + li { margin-top: 7px; }
     footer a { overflow-wrap: anywhere; }
+    footer .unofficial-notice {
+      margin: 0 0 18px;
+      padding: 14px 15px;
+      border: 1px solid #6a5a3b;
+      border-radius: 12px;
+      background: rgb(73 57 32 / 55%);
+      color: #fae5bd;
+      font-weight: 800;
+    }
 
     .final-warning {
       margin: 20px 0 0;
@@ -709,7 +718,7 @@
   <header class="site-header wrap">
     <p class="eyebrow">MUSASHINO BABYSITTER GUIDE</p>
     <h1>武蔵野シッターナビ</h1>
-    <p class="lead">住所と利用条件から、個人プロフィールを探せるサービスと東京都認定37事業者をまとめて確認できます。</p>
+    <p class="lead">東京都認定の37事業者を、住所や条件から探せる非公式ガイドです</p>
     <p class="notice">掲載事業者が武蔵野市で対応できるかは、契約前に各事業者へご確認ください。</p>
   </header>
 
@@ -1550,7 +1559,7 @@
   "data_notes": [
     "事業者詳細（料金・入会金等）は江戸川区が令和8年4月1日時点で調査した比較一覧PDFに基づく",
     "出典: https://www.city.edogawa.tokyo.jp/documents/69753/ninteijigyosha_.pdf",
-    "武蔵野市の対応可否は各事業者への確認が必要（要調査フィールド: serves_musashino）",
+    "掲載事業者が武蔵野市に対応しているかは各事業者にご確認ください",
     "利用料金や規約は変更される場合があります。契約前に必ず各事業者へ確認してください"
   ],
   "musashino_subsidy": {
@@ -2057,6 +2066,7 @@
 
       function renderFooter() {
         const footer = document.getElementById("footer-content");
+        footer.append(el("p", "unofficial-notice", "本サイトは個人が制作した非公式の情報サイトです。武蔵野市・東京都およびの掲載事業者とは一切関係ありません"));
         footer.append(el("h2", null, "ご利用前にご確認ください"));
         footer.append(el("p", null, data.disclaimer));
         const notes = el("ul");
@@ -2082,7 +2092,7 @@
         footer.append(citySource);
         const locationSource = el("p");
         locationSource.append("拠点所在地照合：");
-        addLink(locationSource, "tachiirikekkatou_260401.pdf", "世田谷区 認定事業者への立入調査結果等（令和8年4月1日現在）");
+        addLink(locationSource, "https://www.city.setagaya.lg.jp/documents/30925/tachiirikekkatou_260401.pdf", "世田谷区 認定事業者への立入調査結果等（令和8年4月1日現在）");
         locationSource.append("（現在の37社と重なる33社）および");
         addLink(locationSource, "https://www.fukushi.metro.tokyo.lg.jp/documents/d/fukushi/2026-04-09-095335-917", "東京都 認可外保育施設一覧（居宅訪問型事業）");
         locationSource.append("、各事業者公式サイトを2026年7月14日に確認。住所座標化：");
