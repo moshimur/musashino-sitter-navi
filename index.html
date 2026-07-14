@@ -1,0 +1,2122 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#172d36">
+  <meta name="description" content="住所と利用条件から、武蔵野市のベビーシッター補助制度で使える個人プロフィールと東京都認定事業者を探せます。">
+  <title>武蔵野シッターナビ</title>
+  <style>
+    :root {
+      color-scheme: dark;
+      --bg: #0f2027;
+      --bg-deep: #0a171c;
+      --panel: #172d36;
+      --panel-soft: #1c3640;
+      --panel-muted: #15272e;
+      --text: #f2f6f4;
+      --muted: #b7c9c8;
+      --accent: #8fd5c2;
+      --accent-strong: #b8eadc;
+      --warm: #f0c987;
+      --line: #34515a;
+      --danger-soft: #3a2d29;
+      --shadow: 0 10px 30px rgb(0 0 0 / 18%);
+      --radius: 18px;
+    }
+
+    * { box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      margin: 0;
+      background:
+        radial-gradient(circle at 90% -10%, rgb(83 145 139 / 18%), transparent 32rem),
+        linear-gradient(180deg, var(--bg), var(--bg-deep));
+      color: var(--text);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans JP", "Hiragino Sans", "Yu Gothic UI", sans-serif;
+      font-size: 17px;
+      line-height: 1.7;
+      min-height: 100vh;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    a { color: var(--accent-strong); }
+    button, a { -webkit-tap-highlight-color: transparent; }
+    button { font: inherit; }
+
+    .wrap {
+      width: min(100% - 32px, 1120px);
+      margin-inline: auto;
+    }
+
+    .site-header { padding: 38px 0 24px; }
+
+    .eyebrow {
+      margin: 0 0 5px;
+      color: var(--accent);
+      font-size: .78rem;
+      font-weight: 800;
+      letter-spacing: .13em;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: clamp(2rem, 9vw, 3.4rem);
+      line-height: 1.18;
+      letter-spacing: -.035em;
+    }
+
+    .lead {
+      max-width: 42rem;
+      margin: 12px 0 0;
+      color: var(--muted);
+      font-size: 1.03rem;
+    }
+
+    .notice {
+      margin-top: 20px;
+      padding: 13px 16px;
+      border: 1px solid #6a5a3b;
+      border-radius: 12px;
+      background: rgb(73 57 32 / 55%);
+      color: #fae5bd;
+      font-size: .91rem;
+    }
+
+    .finder {
+      margin-top: 4px;
+      padding: 20px 17px;
+      border: 1px solid #4e756f;
+      border-radius: var(--radius);
+      background: linear-gradient(145deg, #21424a, #172f38);
+      box-shadow: var(--shadow);
+    }
+
+    .finder h2 {
+      margin: 0;
+      font-size: 1.38rem;
+      line-height: 1.45;
+    }
+
+    .finder-lead {
+      margin: 7px 0 16px;
+      color: #d2e3df;
+      font-size: .92rem;
+    }
+
+    .request-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 10px;
+      margin-top: 14px;
+    }
+
+    .request-field { min-width: 0; }
+    .request-field.wide { grid-column: 1 / -1; }
+
+    .request-label {
+      display: block;
+      margin-bottom: 6px;
+      color: #dcebe6;
+      font-size: .8rem;
+      font-weight: 800;
+    }
+
+    .request-input {
+      width: 100%;
+      min-height: 50px;
+      padding: 8px 10px;
+      border: 1px solid #6c8b8d;
+      border-radius: 11px;
+      background: #f6faf8;
+      color: #10252b;
+      font: inherit;
+      font-size: .94rem;
+    }
+
+    .request-input:focus { outline: 3px solid var(--warm); outline-offset: 2px; }
+
+    .request-needs {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin: 13px 0 0;
+      padding: 0;
+      border: 0;
+    }
+
+    .request-needs legend {
+      width: 100%;
+      margin-bottom: 6px;
+      color: #dcebe6;
+      font-size: .8rem;
+      font-weight: 800;
+    }
+
+    .need-choice { position: relative; }
+
+    .need-choice input {
+      position: absolute;
+      inline-size: 1px;
+      block-size: 1px;
+      opacity: 0;
+    }
+
+    .need-choice span {
+      display: flex;
+      align-items: center;
+      min-height: 46px;
+      padding: 7px 13px;
+      border: 1px solid #68868a;
+      border-radius: 999px;
+      color: var(--text);
+      font-size: .85rem;
+      font-weight: 800;
+      cursor: pointer;
+    }
+
+    .need-choice input:checked + span { border-color: var(--warm); background: #4a3e29; color: #ffe9bb; }
+    .need-choice input:focus-visible + span { outline: 3px solid var(--warm); outline-offset: 2px; }
+
+    .address-label {
+      display: block;
+      margin-bottom: 7px;
+      font-size: .88rem;
+      font-weight: 800;
+    }
+
+    .address-row {
+      display: grid;
+      gap: 9px;
+    }
+
+    .address-input {
+      width: 100%;
+      min-height: 54px;
+      padding: 10px 13px;
+      border: 1px solid #6c8b8d;
+      border-radius: 12px;
+      background: #f6faf8;
+      color: #10252b;
+      font: inherit;
+      font-size: 1rem;
+    }
+
+    .address-input::placeholder { color: #697a7d; }
+    .address-input:focus { outline: 3px solid var(--warm); outline-offset: 2px; }
+
+    .find-button, .location-button {
+      min-height: 54px;
+      padding: 10px 16px;
+      border-radius: 12px;
+      font-weight: 800;
+      cursor: pointer;
+    }
+
+    .find-button {
+      border: 1px solid var(--accent);
+      background: var(--accent);
+      color: #0b2928;
+    }
+
+    .location-button {
+      width: 100%;
+      margin-top: 9px;
+      border: 1px solid #68868a;
+      background: transparent;
+      color: var(--text);
+    }
+
+    .find-button:disabled, .location-button:disabled { opacity: .6; cursor: wait; }
+
+    .privacy-note {
+      margin: 10px 0 0;
+      color: var(--muted);
+      font-size: .77rem;
+      line-height: 1.55;
+    }
+
+    .search-status {
+      margin: 13px 0 0;
+      padding: 11px 13px;
+      border-radius: 10px;
+      background: rgb(7 22 27 / 48%);
+      color: #dcebe6;
+      font-size: .88rem;
+    }
+
+    .search-status.error { background: #482d2d; color: #ffe2d8; }
+
+    .nearest-result {
+      margin-top: 15px;
+      padding: 15px;
+      border: 1px solid var(--warm);
+      border-radius: 13px;
+      background: #293c3d;
+    }
+
+    .nearest-kicker {
+      margin: 0;
+      color: var(--warm);
+      font-size: .76rem;
+      font-weight: 900;
+      letter-spacing: .09em;
+    }
+
+    .nearest-result h3 { margin: 3px 0 0; font-size: 1.15rem; }
+    .nearest-result p { margin: 5px 0 0; color: #d4e1dd; font-size: .86rem; }
+
+    .distance-disclaimer {
+      margin: 11px 0 0;
+      padding: 11px 13px;
+      border-left: 3px solid var(--warm);
+      border-radius: 0 9px 9px 0;
+      background: rgb(8 22 27 / 42%);
+      color: #e7dcc0;
+      font-size: .8rem;
+      line-height: 1.6;
+    }
+
+    .individual-section {
+      padding: 19px 17px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: #132a32;
+    }
+
+    .individual-section .section-title { margin-bottom: 5px; }
+
+    .individual-lead {
+      margin: 0 0 14px;
+      color: var(--muted);
+      font-size: .88rem;
+    }
+
+    .request-summary {
+      margin-bottom: 13px;
+      padding: 12px 13px;
+      border-radius: 12px;
+      background: #0d2027;
+      color: #d8e7e3;
+      font-size: .84rem;
+    }
+
+    .request-summary p { margin: 0; }
+
+    .copy-all {
+      min-height: 46px;
+      margin-top: 10px;
+      padding: 7px 13px;
+      border: 1px solid #68868a;
+      border-radius: 10px;
+      background: transparent;
+      color: var(--accent-strong);
+      font-weight: 800;
+      cursor: pointer;
+    }
+
+    .copy-all:focus-visible, .individual-action:focus-visible { outline: 3px solid var(--warm); outline-offset: 3px; }
+
+    .individual-list { display: grid; gap: 11px; }
+
+    .individual-card {
+      padding: 15px;
+      border: 1px solid #46646b;
+      border-radius: 14px;
+      background: var(--panel);
+    }
+
+    .individual-card h3 { margin: 5px 0 0; font-size: 1.05rem; }
+    .individual-card p { margin: 6px 0 0; color: var(--muted); font-size: .82rem; }
+
+    .method-badge {
+      display: inline-flex;
+      align-items: center;
+      min-height: 29px;
+      padding: 3px 9px;
+      border-radius: 999px;
+      background: #21493f;
+      color: #c9f0e2;
+      font-size: .72rem;
+      font-weight: 900;
+    }
+
+    .method-badge.coordinator { background: #3d3d32; color: #eee2b9; }
+
+    .individual-action {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 50px;
+      margin-top: 12px;
+      padding: 8px 12px;
+      border: 1px solid var(--accent);
+      border-radius: 11px;
+      background: var(--accent);
+      color: #0b2928;
+      font-weight: 900;
+      text-align: center;
+      text-decoration: none;
+    }
+
+    .individual-warning {
+      margin: 13px 0 0;
+      color: #ddcfaa;
+      font-size: .78rem;
+      line-height: 1.55;
+    }
+
+    section { margin-block: 20px 32px; }
+
+    .section-title {
+      margin: 0 0 14px;
+      font-size: 1.35rem;
+      line-height: 1.4;
+    }
+
+    .subsidy-card {
+      overflow: hidden;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: linear-gradient(145deg, #1d3942, #172d36);
+      box-shadow: var(--shadow);
+    }
+
+    .subsidy-main {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1px;
+      background: var(--line);
+    }
+
+    .subsidy-item {
+      min-width: 0;
+      padding: 17px 16px;
+      background: var(--panel);
+    }
+
+    .subsidy-item:first-child { grid-column: 1 / -1; }
+
+    .subsidy-label {
+      display: block;
+      margin-bottom: 3px;
+      color: var(--accent);
+      font-size: .76rem;
+      font-weight: 800;
+      letter-spacing: .08em;
+    }
+
+    .subsidy-value {
+      display: block;
+      font-size: .98rem;
+      font-weight: 700;
+      line-height: 1.55;
+    }
+
+    .subsidy-foot {
+      padding: 15px 16px 17px;
+      color: var(--muted);
+      font-size: .85rem;
+    }
+
+    .subsidy-foot p { margin: 0 0 5px; }
+    .subsidy-foot p:last-child { margin: 0; }
+
+    .filter-panel {
+      position: sticky;
+      z-index: 10;
+      top: 0;
+      margin-inline: -16px;
+      padding: 14px 16px 15px;
+      border-block: 1px solid var(--line);
+      background: rgb(15 32 39 / 94%);
+      box-shadow: 0 8px 20px rgb(0 0 0 / 12%);
+      backdrop-filter: blur(12px);
+    }
+
+    .filter-heading {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 10px;
+    }
+
+    .filter-heading h2 { margin: 0; font-size: 1.12rem; }
+
+    .clear-button {
+      min-height: 44px;
+      padding: 4px 10px;
+      border: 0;
+      background: transparent;
+      color: var(--accent-strong);
+      cursor: pointer;
+      text-decoration: underline;
+      text-underline-offset: 3px;
+    }
+
+    .filters { display: flex; gap: 9px; overflow-x: auto; padding: 2px 1px 5px; scrollbar-width: thin; }
+
+    .filter {
+      position: relative;
+      flex: 0 0 auto;
+    }
+
+    .filter input {
+      position: absolute;
+      inline-size: 1px;
+      block-size: 1px;
+      opacity: 0;
+    }
+
+    .filter span {
+      display: flex;
+      align-items: center;
+      min-height: 48px;
+      padding: 8px 15px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      background: var(--panel);
+      color: var(--text);
+      font-size: .91rem;
+      font-weight: 700;
+      cursor: pointer;
+      white-space: nowrap;
+    }
+
+    .filter input:checked + span {
+      border-color: var(--accent);
+      background: var(--accent);
+      color: #0b2928;
+    }
+
+    .filter input:focus-visible + span, .clear-button:focus-visible, .action:focus-visible {
+      outline: 3px solid var(--warm);
+      outline-offset: 3px;
+    }
+
+    .results-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      margin: 21px 0 12px;
+    }
+
+    .results-head h2 { margin: 0; font-size: 1.25rem; }
+    .result-count { margin: 0; color: var(--muted); font-size: .94rem; font-variant-numeric: tabular-nums; }
+
+    .provider-list { display: grid; gap: 14px; }
+
+    .provider-card {
+      padding: 19px 17px 17px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: var(--panel);
+      box-shadow: 0 7px 22px rgb(0 0 0 / 13%);
+    }
+
+    .provider-card.nearest {
+      border-color: var(--warm);
+      box-shadow: 0 8px 26px rgb(240 201 135 / 13%);
+    }
+
+    .rank-line {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      margin-bottom: 8px;
+    }
+
+    .rank-badge, .distance-badge {
+      display: inline-flex;
+      align-items: center;
+      min-height: 30px;
+      padding: 3px 9px;
+      border-radius: 999px;
+      font-size: .76rem;
+      font-weight: 900;
+    }
+
+    .rank-badge { background: var(--warm); color: #342814; }
+    .distance-badge { background: #274750; color: var(--accent-strong); }
+
+    .office-location {
+      margin: 9px 0 0;
+      color: var(--muted);
+      font-size: .81rem;
+      line-height: 1.55;
+    }
+
+    .provider-card.no-details {
+      background: var(--panel-muted);
+      color: #d5dfdc;
+      box-shadow: none;
+      opacity: .88;
+    }
+
+    .provider-card h3 { margin: 0; font-size: 1.18rem; line-height: 1.45; }
+    .former-name { margin: 4px 0 0; color: var(--muted); font-size: .84rem; }
+
+    .price {
+      margin: 14px 0 0;
+      color: var(--accent-strong);
+      font-size: 1.12rem;
+      font-weight: 800;
+    }
+
+    .facts {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 0;
+      margin: 13px 0 0;
+      border-block: 1px solid var(--line);
+    }
+
+    .fact {
+      display: grid;
+      grid-template-columns: 7.5rem 1fr;
+      gap: 8px;
+      padding: 10px 0;
+      border-bottom: 1px solid rgb(52 81 90 / 62%);
+    }
+
+    .fact:last-child { border-bottom: 0; }
+    .fact dt { color: var(--muted); font-size: .83rem; font-weight: 700; }
+    .fact dd { margin: 0; font-size: .9rem; overflow-wrap: anywhere; }
+
+    .capabilities {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 7px;
+      margin: 14px 0 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .capability {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      min-height: 34px;
+      padding: 4px 9px;
+      border-radius: 9px;
+      background: #203e46;
+      color: #daebe6;
+      font-size: .78rem;
+      font-weight: 700;
+    }
+
+    .capability.no { background: #2a3538; color: #9eaeae; }
+    .capability.unknown { background: #343832; color: #d5cfb8; }
+
+    .detail-note, .source-note {
+      margin: 12px 0 0;
+      padding: 10px 12px;
+      border-radius: 10px;
+      background: rgb(8 22 27 / 42%);
+      color: var(--muted);
+      font-size: .82rem;
+      line-height: 1.6;
+    }
+
+    .source-note strong { color: var(--warm); }
+
+    .booking-method {
+      margin-top: 13px;
+      padding: 10px 12px;
+      border: 1px solid rgb(70 100 107 / 65%);
+      border-radius: 11px;
+      background: rgb(8 22 27 / 28%);
+    }
+
+    .booking-method p { margin: 6px 0 0; color: var(--muted); font-size: .8rem; }
+
+    .actions { display: grid; grid-template-columns: 1fr 1fr; gap: 9px; margin-top: 15px; }
+
+    .action {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 50px;
+      padding: 9px 12px;
+      border: 1px solid var(--accent);
+      border-radius: 12px;
+      color: var(--accent-strong);
+      font-weight: 800;
+      text-align: center;
+      text-decoration: none;
+    }
+
+    .action.primary { background: var(--accent); color: #0b2928; }
+    .action.disabled { border-color: var(--line); color: #849697; pointer-events: none; }
+    button.action { width: 100%; background: transparent; cursor: pointer; }
+    .action.full { grid-column: 1 / -1; }
+
+    .empty {
+      padding: 34px 20px;
+      border: 1px dashed var(--line);
+      border-radius: var(--radius);
+      color: var(--muted);
+      text-align: center;
+    }
+
+    footer {
+      margin-top: 48px;
+      padding: 34px 0 calc(40px + env(safe-area-inset-bottom));
+      border-top: 1px solid var(--line);
+      background: #09161b;
+    }
+
+    footer h2 { margin: 0 0 12px; font-size: 1.2rem; }
+    footer p, footer li { color: var(--muted); font-size: .88rem; }
+    footer ul { margin: 12px 0; padding-left: 1.35rem; }
+    footer li + li { margin-top: 7px; }
+    footer a { overflow-wrap: anywhere; }
+
+    .final-warning {
+      margin: 20px 0 0;
+      padding: 15px;
+      border-radius: 12px;
+      background: var(--danger-soft);
+      color: #ffe6d9;
+      font-weight: 800;
+    }
+
+    [hidden] { display: none !important; }
+
+    @media (min-width: 720px) {
+      .site-header { padding-top: 55px; }
+      .subsidy-main { grid-template-columns: repeat(4, 1fr); }
+      .subsidy-item:first-child { grid-column: span 2; }
+      .filter-panel { margin-inline: 0; border: 1px solid var(--line); border-radius: 16px; }
+      .filters { flex-wrap: wrap; overflow: visible; }
+      .provider-list { grid-template-columns: repeat(2, minmax(0, 1fr)); align-items: start; }
+      .address-row { grid-template-columns: minmax(0, 1fr) auto; }
+      .find-button { min-width: 12rem; }
+      .request-grid { grid-template-columns: 1.4fr 1fr 1fr 1.1fr; }
+      .request-field.wide { grid-column: auto; }
+      .individual-list { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    }
+
+    @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+  </style>
+</head>
+<body>
+  <header class="site-header wrap">
+    <p class="eyebrow">MUSASHINO BABYSITTER GUIDE</p>
+    <h1>武蔵野シッターナビ</h1>
+    <p class="lead">住所と利用条件から、個人プロフィールを探せるサービスと東京都認定37事業者をまとめて確認できます。</p>
+    <p class="notice">掲載事業者が武蔵野市で対応できるかは、契約前に各事業者へご確認ください。</p>
+  </header>
+
+  <main class="wrap">
+    <section class="finder" aria-labelledby="finder-title">
+      <h2 id="finder-title">来てくれるシッターを探す</h2>
+      <p class="finder-lead">住所・日時・お子さまの条件を一度入力。個人を公開検索できるサービスと、認定37社への確認先をまとめます。</p>
+      <form id="address-form">
+        <label class="address-label" for="address">お住まいの住所</label>
+        <div class="address-row">
+          <input class="address-input" id="address" name="address" type="search" autocomplete="street-address" inputmode="text" placeholder="例：武蔵野市吉祥寺本町1-1-1" required>
+          <button class="find-button" id="find-button" type="submit">個人候補を探す</button>
+        </div>
+        <div class="request-grid">
+          <div class="request-field wide">
+            <label class="request-label" for="request-date">利用日</label>
+            <input class="request-input" id="request-date" name="request-date" type="date" required>
+          </div>
+          <div class="request-field">
+            <label class="request-label" for="start-time">開始</label>
+            <input class="request-input" id="start-time" name="start-time" type="time" value="18:00" step="900" required>
+          </div>
+          <div class="request-field">
+            <label class="request-label" for="end-time">終了</label>
+            <input class="request-input" id="end-time" name="end-time" type="time" value="21:00" step="900" required>
+          </div>
+          <div class="request-field">
+            <label class="request-label" for="child-age">お子さまの年齢</label>
+            <select class="request-input" id="child-age" name="child-age" required>
+              <option value="">選択</option>
+              <option>0歳0〜2か月</option>
+              <option>0歳3〜5か月</option>
+              <option>0歳6〜11か月</option>
+              <option>1歳</option>
+              <option>2歳</option>
+              <option>3〜6歳</option>
+            </select>
+          </div>
+        </div>
+        <fieldset class="request-needs">
+          <legend>必要な対応（任意）</legend>
+          <label class="need-choice"><input id="need-sick" type="checkbox"><span>病児・病後児</span></label>
+          <label class="need-choice"><input id="need-disabled" type="checkbox"><span>障害児対応</span></label>
+        </fieldset>
+      </form>
+      <button class="location-button" id="location-button" type="button">現在地を使う</button>
+      <p class="privacy-note">住所検索には国土地理院のサービスを使用します。入力した住所・利用条件はこのアプリには保存しません。</p>
+      <p class="search-status" id="search-status" role="status" aria-live="polite" hidden></p>
+      <div class="nearest-result" id="nearest-result" hidden></div>
+      <p class="distance-disclaimer">※事務所への距離であり、サービス提供エリアとは異なります。自宅への派遣可否は必ず各事業者にご確認ください</p>
+    </section>
+
+    <section class="individual-section" id="individual-section" aria-labelledby="individual-title" hidden>
+      <h2 class="section-title" id="individual-title">シッター個人を確認する</h2>
+      <p class="individual-lead">個人プロフィールを公開している認定事業者では、氏名または公開名・料金・対応年齢・スケジュールを公式画面で確認できます。</p>
+      <div class="request-summary" id="request-summary"></div>
+      <div class="individual-list" id="individual-results"></div>
+      <p class="individual-warning">表示順や空き枠は変わります。「東京都一時預かり対象」の表示と、武蔵野市での補助対象になる契約・予約方法を必ず予約前にご確認ください。</p>
+    </section>
+
+    <section aria-labelledby="subsidy-title">
+      <h2 class="section-title" id="subsidy-title">補助制度のポイント</h2>
+      <div class="subsidy-card" id="subsidy-card"></div>
+    </section>
+
+    <section aria-labelledby="filter-title">
+      <div class="filter-panel">
+        <div class="filter-heading">
+          <h2 id="filter-title">条件で絞り込む</h2>
+          <button class="clear-button" id="clear-filters" type="button">すべて解除</button>
+        </div>
+        <div class="filters" id="filters">
+          <label class="filter"><input type="checkbox" value="noMembershipFee"><span>入会金・年会費なし</span></label>
+          <label class="filter"><input type="checkbox" value="sickChild"><span>病児対応</span></label>
+          <label class="filter"><input type="checkbox" value="nightCare"><span>夜間対応</span></label>
+          <label class="filter"><input type="checkbox" value="sameDay"><span>当日予約OK</span></label>
+          <label class="filter"><input type="checkbox" value="disabledChild"><span>障害児対応</span></label>
+          <label class="filter"><input type="checkbox" value="details"><span>詳細情報あり</span></label>
+        </div>
+      </div>
+
+      <div class="results-head">
+        <h2>認定事業者</h2>
+        <p class="result-count" id="result-count" role="status" aria-live="polite"></p>
+      </div>
+      <div class="provider-list" id="provider-list"></div>
+      <p class="empty" id="empty" hidden>選択した条件に合う事業者がありません。条件を減らしてお試しください。</p>
+    </section>
+  </main>
+
+  <footer>
+    <div class="wrap" id="footer-content"></div>
+  </footer>
+
+  <script id="sitter-data" type="application/json">
+{
+  "source": "東京都福祉局 ベビーシッター利用支援事業（一時預かり利用支援）認定事業者一覧",
+  "source_url": "https://www.fukushi.metro.tokyo.lg.jp/kodomo/hoiku/bs/itijiazukarijigyoushalist",
+  "retrieved": "2026-07-14",
+  "disclaimer": "2026年7月時点の情報です。最新情報は必ず東京都公式ページでご確認ください。",
+  "providers": [
+    {
+      "id": 1,
+      "name": "サンフラワー・A 株式会社",
+      "former_name": "",
+      "phone": "03-5914-1531",
+      "notes": [],
+      "service_areas": [],
+      "fees_note": "",
+      "url": "https://sunflower-a.com/service/baby-sitter/",
+      "price": "会員3,080円/時・ビジター4,180円/時",
+      "admission_fee": "22,000円(免除制度あり)",
+      "annual_fee": "年会費16,500円",
+      "min_hours": "2時間〜",
+      "night_care": "あり(18-9時 1,100円/回加算)",
+      "sick_child": "病後児のみ(加算なし)",
+      "disabled_child": "要相談(加算なし)",
+      "voucher": true,
+      "same_day_booking": true,
+      "cancellation": "前々日18時以降50%/前日18時以降100%",
+      "detail_note": "",
+      "detail_source": "江戸川区調査(令和8年4月1日時点)",
+      "serves_musashino": null
+    },
+    {
+      "id": 2,
+      "name": "株式会社 小学館アカデミー（ベビーシッターのHAS)",
+      "former_name": "",
+      "phone": "0120-834-988",
+      "notes": [],
+      "service_areas": [],
+      "fees_note": "",
+      "url": "https://www.shopro.co.jp/babysitter/",
+      "detail_source": "江戸川区調査では回答なし(公式サイト要確認)",
+      "serves_musashino": null
+    },
+    {
+      "id": 3,
+      "name": "株式会社 明日香",
+      "former_name": "",
+      "phone": "03-6912-2125",
+      "notes": [],
+      "service_areas": [],
+      "fees_note": "",
+      "url": "",
+      "serves_musashino": null,
+      "detail_source": "江戸川区は対象外エリア(対応地域が事業者により異なる実例)。武蔵野市対応は要確認"
+    },
+    {
+      "id": 4,
+      "name": "mormor 株式会社 （モルモル）",
+      "former_name": "",
+      "phone": "03-6276-2149",
+      "notes": [],
+      "service_areas": [],
+      "fees_note": "",
+      "url": "https://mormor.co.jp/tokyo-shien_ichiji/",
+      "price": "3,300円/時",
+      "admission_fee": "無",
+      "annual_fee": "無",
+      "min_hours": "3時間〜",
+      "night_care": "無",
+      "sick_child": "無",
+      "disabled_child": "無",
+      "voucher": true,
+      "same_day_booking": true,
+      "cancellation": "前々日18時以降25%/前日18時以降50%",
+      "detail_note": "2026年4月〜料金・サービス改訂予定",
+      "detail_source": "江戸川区調査(令和8年4月1日時点)",
+      "serves_musashino": null
+    },
+    {
+      "id": 5,
+      "name": "有限会社 クールドロワ （CoMaMoRi）",
+      "former_name": "",
+      "phone": "03-6908-1869",
+      "notes": [],
+      "service_areas": [],
+      "fees_note": "",
+      "url": "https://www.coeurderoi.com/tokyo_babysitter_spot.html",
+      "price": "2,500円/時(平日7-22時)〜",
+      "admission_fee": "無",
+      "annual_fee": "年間登録料3,000円",
+      "min_hours": "2時間〜",
+      "night_care": "あり",
+      "sick_child": "無回答",
+      "disabled_child": "無回答",
+      "voucher": true,
+      "same_day_booking": false,
+      "cancellation": "前々日18時まで無料/以降50-100%",
+      "detail_note": "地域によりシッター手配が難しい場合あり",
+      "detail_source": "江戸川区調査(令和8年4月1日時点)",
+      "serves_musashino": null
+    },
+    {
+      "id": 6,
+      "name": "ハニークローバー 株式会社",
+      "former_name": "",
+      "phone": "050-5434-3429",
+      "notes": [],
+      "service_areas": [],
+      "fees_note": "",
+      "url": "https://sitter.honeyclover.co.jp/",
+      "price": "4,400〜7,040円/時(派遣)",
+      "admission_fee": "無",
+      "annual_fee": "無",
+      "min_hours": "1時間〜",
+      "night_care": "あり",
+      "sick_child": "あり",
+      "disabled_child": "あり",
+      "voucher": true,
+      "same_day_booking": true,
+      "cancellation": "2営業日17時まで無料/以降50-100%",
+      "detail_note": "",
+      "detail_source": "江戸川区調査(令和8年4月1日時点)",
+      "serves_musashino": null
+    },
+    {
+      "id": 7,
+      "name": "株式会社 ジャパンベビーシッターサービス",
+      "former_name": "",
+      "phone": "03-3423-1251",
+      "notes": [],
+      "service_areas": [],
+      "fees_note": "",
+      "url": "http://jbs-mom.co.jp/service/babysitter/",
+      "price": "会員3,300円/時〜・ビジター4,125円/時〜(税抜)",
+      "admission_fee": "会員は15,000円(ビジター不要)",
+      "annual_fee": "会員は24,000円",
+      "min_hours": "1時間〜",
+      "night_care": "あり(時間帯別加算)",
+      "sick_child": "あり(加算1,000円/時〜)",
+      "disabled_child": "あり(加算500円/時)",
+      "voucher": true,
+      "same_day_booking": true,
+      "cancellation": "前日50%/当日80%",
+      "detail_note": "",
+      "detail_source": "江戸川区調査(令和8年4月1日時点)",
+      "serves_musashino": null
+    },
+    {
+      "id": 8,
+      "name": "株式会社 ミラクス （miraxsシッター）",
+      "former_name": "HITOWAキャリアサポート 株式会社 （わらべうた",
+      "phone": "0120-415-306",
+      "notes": [],
+      "service_areas": [],
+      "fees_note": "",
+      "url": "",
+      "serves_musashino": null,
+      "detail_source": "江戸川区は対象外エリア。武蔵野市対応は要確認"
+    },
+    {
+      "id": 9,
+      "name": "株式会社 ポピンズファミリーケア",
+      "former_name": "株式会社ポピンズ",
+      "phone": "0120-27-2100",
+      "notes": [],
+      "service_areas": [],
+      "fees_note": "",
+      "url": "https://www.poppins.co.jp/familycare/service-nanny/subsidy/support/",
+      "price": "3,300円/時",
+      "admission_fee": "無",
+      "annual_fee": "無",
+      "min_hours": "3時間〜",
+      "night_care": "あり(18時-翌8時)",
+      "sick_child": "あり(+1,500円/時〜)",
+      "disabled_child": "個別対応",
+      "voucher": true,
+      "same_day_booking": false,
+      "cancellation": "前日18時まで50%/以降100%",
+      "detail_note": "",
+      "detail_source": "江戸川区調査(令和8年4月1日時点)",
+      "serves_musashino": null
+    },
+    {
+      "id": 10,
+      "name": "株式会社 ポピンズシッター",
+      "former_name": "スマートシッター株式会社",
+      "phone": "0120-795-501",
+      "notes": [],
+      "service_areas": [],
+      "fees_note": "",
+      "url": "https://smartsitter.jp/",
+      "price": "2,600円/時〜",
+      "admission_fee": "無",
+      "annual_fee": "無",
+      "min_hours": "2時間〜(シッターにより30分〜)",
+      "night_care": "21時-翌8時 25%加算",
+      "sick_child": "あり(対応シッターのみ +2,420円/回〜)",
+      "disabled_child": "対応シッターのみ(加算なし)",
+      "voucher": true,
+      "same_day_booking": true,
+      "cancellation": "前日0時まで無料/17時まで50%/以降100%",
+      "detail_note": "",
+      "detail_source": "江戸川区調査(令和8年4月1日時点)",
+      "serves_musashino": null
+    },
+    {
+      "id": 11,
+      "name": "株式会社 キッズライン",
+      "former_name": "",
+      "phone": "050-3134-3538",
+      "notes": [
+        "※マッチングサービスは、本事業の対象外です。本事業のご利用には、マッチングサービスとは別に、契約を締結する必要があります。"
+      ],
+      "service_areas": [],
+      "fees_note": "",
+      "url": "https://kidsline.me/tokyo_sitter/temporary_childcare/intro",
+      "price": "平均2,600円/時(シッターにより変動)",
+      "admission_fee": "無",
+      "annual_fee": "無",
+      "min_hours": "1時間〜",
+      "night_care": "あり(シッターによる)",
+      "sick_child": "あり",
+      "disabled_child": "あり",
+      "voucher": true,
+      "same_day_booking": true,
+      "cancellation": "48時間前から50%/24時間前から100%",
+      "detail_note": "マッチングサービスは本事業の対象外。専用の利用登録が必要",
+      "detail_source": "江戸川区調査(令和8年4月1日時点)",
+      "serves_musashino": null
+    },
+    {
+      "id": 12,
+      "name": "ル・アンジェ 株式会社",
+      "former_name": "",
+      "phone": "03-3477-1287",
+      "notes": [],
+      "service_areas": [],
+      "fees_note": "",
+      "url": "https://www.leange.co.jp/sitter-tokyo/",
+      "detail_source": "江戸川区調査では回答なし(公式サイト要確認)",
+      "serves_musashino": null
+    },
+    {
+      "id": 13,
+      "name": "コンビスマイル 株式会社",
+      "former_name": "",
+      "phone": "0120-67-3177",
+      "notes": [],
+      "service_areas": [],
+      "fees_note": "",
+      "url": "http://combismile.co.jp/",
+      "price": "2,900円/時〜",
+      "admission_fee": "20,000円(免除制度あり)",
+      "annual_fee": "年会費15,000円(月割対応)",
+      "min_hours": "3時間〜(条件により2時間〜)",
+      "night_care": "あり(22-5時 3,900円/時〜)",
+      "sick_child": "あり(3,300円/時〜)",
+      "disabled_child": "無",
+      "voucher": true,
+      "same_day_booking": true,
+      "cancellation": "前日60%/当日100%",
+      "detail_note": "",
+      "detail_source": "江戸川区調査(令和8年4月1日時点)",
+      "serves_musashino": null
+    },
+    {
+      "id": 14,
+      "name": "株式会社 アルファコーポレーション",
+      "former_name": "",
+      "phone": "0120-086-720",
+      "notes": [],
+      "service_areas": [],
+      "fees_note": "",
+      "url": "http://www.alpha-co.com/sitter",
+      "detail_source": "江戸川区調査では回答なし(公式サイト要確認)",
+      "serves_musashino": null
+    },
+    {
+      "id": 15,
+      "name": "株式会社 パザパ情操教育研究所",
+      "former_name": "",
+      "phone": "03-6457-7935",
+      "notes": [],
+      "service_areas": [],
+      "fees_note": "",
+      "url": "http://www.pasapas-edu.com/",
+      "price": "3,000円/時〜",
+      "admission_fee": "25,000円",
+      "annual_fee": "年会費15,000円(子1人につき)",
+      "min_hours": "2時間〜",
+      "night_care": "あり(19-9時 3,500円/時〜)",
+      "sick_child": "無",
+      "disabled_child": "無",
+      "voucher": true,
+      "same_day_booking": false,
+      "cancellation": "前日50%/当日100%",
+      "detail_note": "",
+      "detail_source": "江戸川区調査(令和8年4月1日時点)",
+      "serves_musashino": null
+    },
+    {
+      "id": 16,
+      "name": "株式会社 ラヴィ",
+      "former_name": "",
+      "phone": "03-3403-9561",
+      "notes": [],
+      "service_areas": [],
+      "fees_note": "",
+      "url": "https://lavie1.jp/",
+      "detail_source": "江戸川区調査では回答なし(公式サイト要確認)",
+      "serves_musashino": null
+    },
+    {
+      "id": 17,
+      "name": "株式会社 タカミサプライ",
+      "former_name": "",
+      "phone": "03-3463-8777",
+      "notes": [],
+      "service_areas": [],
+      "fees_note": "",
+      "url": "https://ssl.takamisupply.co.jp/",
+      "price": "2,700〜3,620円/時",
+      "admission_fee": "8,000円(免除制度あり)",
+      "annual_fee": "年会費5,000円",
+      "min_hours": "1時間〜(送迎なしは2時間〜)",
+      "night_care": "あり(21時-翌8時 3,200円)",
+      "sick_child": "病後児のみ",
+      "disabled_child": "無",
+      "voucher": true,
+      "same_day_booking": false,
+      "cancellation": "前営業日17:45以降100%",
+      "detail_note": "",
+      "detail_source": "江戸川区調査(令和8年4月1日時点)",
+      "serves_musashino": null
+    },
+    {
+      "id": 18,
+      "name": "株式会社 マザーネット",
+      "former_name": "",
+      "phone": "03-5733-6777",
+      "notes": [],
+      "service_areas": [],
+      "fees_note": "",
+      "url": "http://www.mothernet.co.jp/",
+      "price": "3,390円/時",
+      "admission_fee": "無",
+      "annual_fee": "無",
+      "min_hours": "2時間〜",
+      "night_care": "あり(20時以降割増)",
+      "sick_child": "あり(インフル加算115円/時)",
+      "disabled_child": "あり(要相談)",
+      "voucher": true,
+      "same_day_booking": true,
+      "cancellation": "1営業日前50%/当日100%",
+      "detail_note": "",
+      "detail_source": "江戸川区調査(令和8年4月1日時点)",
+      "serves_musashino": null
+    },
+    {
+      "id": 19,
+      "name": "特定非営利活動法人 フローレンス",
+      "former_name": "",
+      "phone": "03-6811-0905",
+      "notes": [
+        "※病児・病後児保育特化（フローレンスの病児保育）",
+        "※多胎児専用（フローレンスのふたご助っ人くじ）"
+      ],
+      "service_areas": [],
+      "fees_note": "",
+      "url": "https://byojihoiku.florence.or.jp/",
+      "price": "未就学児2,500円/時〜(5分毎課金)",
+      "admission_fee": "30,000円(未就学児)",
+      "annual_fee": "月会費5,600円〜+年会費10,000円",
+      "min_hours": "定めなし(5分毎)",
+      "night_care": "オプション(18-20時)",
+      "sick_child": "あり(病児保育特化)",
+      "disabled_child": "あり(状態により変動)",
+      "voucher": true,
+      "same_day_booking": true,
+      "cancellation": "当日朝6時から50-100%",
+      "detail_note": "病児・病後児特化。多胎児専用「ふたご助っ人くじ」あり",
+      "detail_source": "江戸川区調査(令和8年4月1日時点)",
+      "serves_musashino": null
+    },
+    {
+      "id": 20,
+      "name": "eソリューションサービス株式会社（eキッズ訪問保育）",
+      "former_name": "",
+      "phone": "03-6384-2440",
+      "notes": [],
+      "service_areas": [],
+      "fees_note": "",
+      "url": "https://ekids-hoiku.jp/",
+      "price": "2,750円/時〜",
+      "admission_fee": "無",
+      "annual_fee": "無",
+      "min_hours": "3時間〜(送迎は2時間〜)",
+      "night_care": "17-22時(加算330円/時)",
+      "sick_child": "無",
+      "disabled_child": "あり",
+      "voucher": true,
+      "same_day_booking": false,
+      "cancellation": "前々営業日18時以降50%/前営業日18時以降100%",
+      "detail_note": "",
+      "detail_source": "江戸川区調査(令和8年4月1日時点)",
+      "serves_musashino": null
+    },
+    {
+      "id": 21,
+      "name": "HugPocket株式会社",
+      "former_name": "",
+      "phone": "03-6821-0235",
+      "notes": [],
+      "service_areas": [],
+      "fees_note": "",
+      "url": "https://hugpocket.com/service/babysitterservice/",
+      "price": "2,970〜3,300円/時",
+      "admission_fee": "無",
+      "annual_fee": "無",
+      "min_hours": "3時間〜(以降15分単位)",
+      "night_care": "あり(22-8時 加算1,100円/時)",
+      "sick_child": "あり(加算1,100円/時)",
+      "disabled_child": "あり(加算なし・応相談)",
+      "voucher": true,
+      "same_day_booking": false,
+      "cancellation": "開始48時間前以降に発生",
+      "detail_note": "",
+      "detail_source": "江戸川区調査(令和8年4月1日時点)",
+      "serves_musashino": null
+    },
+    {
+      "id": 22,
+      "name": "株式会社 パソナライフケア",
+      "former_name": "",
+      "phone": "0120-646-634",
+      "notes": [],
+      "service_areas": [],
+      "fees_note": "",
+      "url": "https://lp.pasona-lc.co.jp/babysitter_tokyo/",
+      "price": "2,750円/時",
+      "admission_fee": "無",
+      "annual_fee": "無",
+      "min_hours": "2時間〜",
+      "night_care": "あり(21時-翌9時 500円/時等)",
+      "sick_child": "無",
+      "disabled_child": "応相談",
+      "voucher": false,
+      "same_day_booking": false,
+      "cancellation": "前2営業日17時まで無料/以降100%",
+      "detail_note": "",
+      "detail_source": "江戸川区調査(令和8年4月1日時点)",
+      "serves_musashino": null
+    },
+    {
+      "id": 23,
+      "name": "株式会社 ママMATE",
+      "former_name": "",
+      "phone": "03-6913-8484",
+      "notes": [],
+      "service_areas": [],
+      "fees_note": "",
+      "url": "https://mama-mate.jp/",
+      "price": "3,300円/時(ビジター利用可)",
+      "admission_fee": "22,000円(子育て支援パスポートで無料)",
+      "annual_fee": "年会費16,500円(ビジターは無料)",
+      "min_hours": "2時間〜",
+      "night_care": "あり(17-9時 330〜770円/時加算)",
+      "sick_child": "無",
+      "disabled_child": "無",
+      "voucher": true,
+      "same_day_booking": false,
+      "cancellation": "前日17時まで50%/以降100%",
+      "detail_note": "",
+      "detail_source": "江戸川区調査(令和8年4月1日時点)",
+      "serves_musashino": null
+    },
+    {
+      "id": 24,
+      "name": "株式会社アリスキャリアサービス（アリスシッター）",
+      "former_name": "",
+      "phone": "0120-949-260",
+      "notes": [],
+      "service_areas": [],
+      "fees_note": "",
+      "url": "https://sitter.studio-alice.co.jp/tokyo-babysitter-support",
+      "price": "2,500円/時(8-21時)〜",
+      "admission_fee": "無",
+      "annual_fee": "無",
+      "min_hours": "2時間〜",
+      "night_care": "無",
+      "sick_child": "あり(3,125円/時〜)",
+      "disabled_child": "あり(内容により応相談)",
+      "voucher": true,
+      "same_day_booking": true,
+      "cancellation": "48時間前まで無料/以降段階的に50-100%",
+      "detail_note": "",
+      "detail_source": "江戸川区調査(令和8年4月1日時点)",
+      "serves_musashino": null
+    },
+    {
+      "id": 25,
+      "name": "株式会社 パリオ",
+      "former_name": "",
+      "phone": "03-6824-1242",
+      "notes": [],
+      "service_areas": [],
+      "fees_note": "",
+      "url": "https://st.pariwo.jp/subsidy-tokyo-temporary/",
+      "price": "2,700〜4,000円/時(最低利用金額6,500円)",
+      "admission_fee": "無",
+      "annual_fee": "無",
+      "min_hours": "最低6,500円/回",
+      "night_care": "あり(22-7時 +1,000円/時)",
+      "sick_child": "あり(+1,000円/時)",
+      "disabled_child": "あり(3,000円/時)",
+      "voucher": true,
+      "same_day_booking": true,
+      "cancellation": "前日まで60%/当日100%",
+      "detail_note": "",
+      "detail_source": "江戸川区調査(令和8年4月1日時点)",
+      "serves_musashino": null
+    },
+    {
+      "id": 26,
+      "name": "一般社団法人ひよこルーム（一時預かり保育こぐまハウス）",
+      "former_name": "",
+      "phone": "03-6451-2771",
+      "notes": [],
+      "service_areas": [],
+      "fees_note": "",
+      "url": "https://kogumahouse.com/",
+      "price": "3,000〜5,000円/時",
+      "admission_fee": "無",
+      "annual_fee": "施設利用料2,200円(自宅は不要)",
+      "min_hours": "2時間〜",
+      "night_care": "あり",
+      "sick_child": "あり(利用歴児のみ・保育料20-50%UP)",
+      "disabled_child": "無",
+      "voucher": true,
+      "same_day_booking": true,
+      "cancellation": "24時間前より発生",
+      "detail_note": "",
+      "detail_source": "江戸川区調査(令和8年4月1日時点)",
+      "serves_musashino": null
+    },
+    {
+      "id": 27,
+      "name": "株式会社Rapop",
+      "former_name": "",
+      "phone": "090-4241-1027",
+      "notes": [],
+      "service_areas": [],
+      "fees_note": "",
+      "url": "https://rapop.my.canva.site/",
+      "price": "3,500円/時(非課税)",
+      "admission_fee": "無",
+      "annual_fee": "無",
+      "min_hours": "2時間〜(以降30分単位)",
+      "night_care": "あり(22-7時 基本料金×30%加算)",
+      "sick_child": "あり(加算なし)",
+      "disabled_child": "あり(加算なし)",
+      "voucher": false,
+      "same_day_booking": true,
+      "cancellation": "前日80%/当日100%",
+      "detail_note": "",
+      "detail_source": "江戸川区調査(令和8年4月1日時点)",
+      "serves_musashino": null
+    },
+    {
+      "id": 28,
+      "name": "株式会社アイカタ（アイカタシッター）",
+      "former_name": "",
+      "phone": "070-9004-3853",
+      "notes": [],
+      "service_areas": [],
+      "fees_note": "",
+      "url": "https://aikatasitter.com/",
+      "price": "2,750円/時(税込)",
+      "admission_fee": "無",
+      "annual_fee": "無",
+      "min_hours": "3時間〜",
+      "night_care": "あり(22-5時 深夜25%増)",
+      "sick_child": "あり(軽微4,400円/回〜)",
+      "disabled_child": "あり(加算なし・要相談)",
+      "voucher": false,
+      "same_day_booking": true,
+      "cancellation": "前々日まで無料/前日17時まで50%/以降100%",
+      "detail_note": "",
+      "detail_source": "江戸川区調査(令和8年4月1日時点)",
+      "serves_musashino": null
+    },
+    {
+      "id": 29,
+      "name": "マミーヒルズ株式会社",
+      "former_name": "",
+      "phone": "03-6319-2341",
+      "notes": [],
+      "service_areas": [],
+      "fees_note": "",
+      "url": "http://mammy-hills.com/",
+      "price": "2,750〜3,300円/時",
+      "admission_fee": "22,000円(免除制度あり)",
+      "annual_fee": "年会費11,000円(子1人につき)",
+      "min_hours": "2時間〜",
+      "night_care": "あり(21-9時 3,300円/時)",
+      "sick_child": "あり(感染症以外 1,320円/回)",
+      "disabled_child": "無",
+      "voucher": true,
+      "same_day_booking": false,
+      "cancellation": "前日18時以前50%/以降100%",
+      "detail_note": "",
+      "detail_source": "江戸川区調査(令和8年4月1日時点)",
+      "serves_musashino": null
+    },
+    {
+      "id": 30,
+      "name": "株式会社Matchfy（mamacoco）",
+      "former_name": "",
+      "phone": "03-4563-9962",
+      "notes": [],
+      "service_areas": [],
+      "fees_note": "",
+      "url": "https://mama-coco.jp/",
+      "price": "2,300〜3,000円/時",
+      "admission_fee": "無",
+      "annual_fee": "無",
+      "min_hours": "1時間〜",
+      "night_care": "あり(シッターによる)",
+      "sick_child": "あり(シッターによる)",
+      "disabled_child": "あり(シッターによる)",
+      "voucher": true,
+      "same_day_booking": true,
+      "cancellation": "48時間前まで無料/以降50-100%",
+      "detail_note": "",
+      "detail_source": "江戸川区調査(令和8年4月1日時点)",
+      "serves_musashino": null
+    },
+    {
+      "id": 31,
+      "name": "株式会社ベビーシッターTOKYO",
+      "former_name": "",
+      "phone": "080-5134-0946",
+      "notes": [],
+      "service_areas": [],
+      "fees_note": "",
+      "url": "https://babysittertokyo.jp/",
+      "price": "2,600円/時",
+      "admission_fee": "無",
+      "annual_fee": "無",
+      "min_hours": "3時間〜",
+      "night_care": "あり(18-22時 3,250円/22-9時 3,900円)",
+      "sick_child": "あり(+3,090円/回〜)",
+      "disabled_child": "無",
+      "voucher": true,
+      "same_day_booking": true,
+      "cancellation": "前日50%/当日100%",
+      "detail_note": "",
+      "detail_source": "江戸川区調査(令和8年4月1日時点)",
+      "serves_musashino": null
+    },
+    {
+      "id": 32,
+      "name": "株式会社アズスタッフ（ベビーベル）",
+      "former_name": "",
+      "phone": "050-8890-3452",
+      "notes": [],
+      "service_areas": [],
+      "fees_note": "",
+      "url": "https://baby-bell.com/",
+      "price": "2,420円/時〜",
+      "admission_fee": "無",
+      "annual_fee": "無",
+      "min_hours": "2時間〜",
+      "night_care": "あり(20時-翌8時 時間外料金)",
+      "sick_child": "あり",
+      "disabled_child": "相談可",
+      "voucher": true,
+      "same_day_booking": true,
+      "cancellation": "前々日17時以降100%",
+      "detail_note": "",
+      "detail_source": "江戸川区調査(令和8年4月1日時点)",
+      "serves_musashino": null
+    },
+    {
+      "id": 33,
+      "name": "株式会社beflex（beflexベビーシッター）",
+      "former_name": "",
+      "phone": "090-1155-2902",
+      "notes": [],
+      "service_areas": [],
+      "fees_note": "",
+      "url": "https://beflex.me/",
+      "serves_musashino": null,
+      "detail_source": "江戸川区調査では詳細情報なし(公式サイト要確認)"
+    },
+    {
+      "id": 34,
+      "name": "株式会社なつのそら（育児119）",
+      "former_name": "",
+      "phone": "03-6825-2375",
+      "notes": [],
+      "service_areas": [],
+      "fees_note": "",
+      "url": "",
+      "serves_musashino": null,
+      "detail_source": "都リスト掲載(2026年新規)。詳細・武蔵野市対応は要確認"
+    },
+    {
+      "id": 35,
+      "name": "合同会社ララシェルキッズ",
+      "former_name": "",
+      "phone": "03-6899-5678",
+      "notes": [],
+      "service_areas": [],
+      "fees_note": "",
+      "url": "",
+      "serves_musashino": null,
+      "detail_source": "都リスト掲載(2026年新規)。詳細・武蔵野市対応は要確認"
+    },
+    {
+      "id": 36,
+      "name": "株式会社ファーストアセント（ベビケアプラスシッター）",
+      "former_name": "",
+      "phone": "050-1784-5699",
+      "notes": [],
+      "service_areas": [],
+      "fees_note": "",
+      "url": "",
+      "serves_musashino": null,
+      "detail_source": "都リスト掲載(2026年新規)。詳細・武蔵野市対応は要確認"
+    },
+    {
+      "id": 37,
+      "name": "株式会社グロウキッズ",
+      "former_name": "",
+      "phone": "03-6820-4318",
+      "notes": [],
+      "service_areas": [],
+      "fees_note": "",
+      "url": "",
+      "serves_musashino": null,
+      "detail_source": "都リスト掲載(2026年新規)。詳細・武蔵野市対応は要確認"
+    }
+  ],
+  "data_notes": [
+    "事業者詳細（料金・入会金等）は江戸川区が令和8年4月1日時点で調査した比較一覧PDFに基づく",
+    "出典: https://www.city.edogawa.tokyo.jp/documents/69753/ninteijigyosha_.pdf",
+    "武蔵野市の対応可否は各事業者への確認が必要（要調査フィールド: serves_musashino）",
+    "利用料金や規約は変更される場合があります。契約前に必ず各事業者へ確認してください"
+  ],
+  "musashino_subsidy": {
+    "target": "武蔵野市在住の未就学児（満6歳に達する年度の末日まで）の保護者",
+    "hours_limit": "児童1人あたり年度144時間まで（障害児・ひとり親家庭・多胎児は288時間）",
+    "subsidy_day": "7時〜22時: 1時間あたり2,500円(税込)を上限に助成",
+    "subsidy_night": "22時〜7時: 1時間あたり3,500円(税込)を上限に助成",
+    "not_covered": "入会金・保険料・交通費・キャンセル料などは助成対象外",
+    "source": "https://www.city.musashino.lg.jp/shussan_kodomo_kyoiku/kodomo_kosodate/hoikuen_yochien_kodomoen/kanrenservice/1053852.html",
+    "note": "令和8年度の情報。申請方法・締切は武蔵野市公式ページで要確認"
+  }
+}
+  </script>
+  <script>
+    (() => {
+      "use strict";
+
+      const data = JSON.parse(document.getElementById("sitter-data").textContent);
+      const providerLocations = new Map([
+        [1,  { label: "本社", address: "東京都板橋区小豆沢1-12-6 プラッセ小豆沢2階", lat: 35.773441, lng: 139.698288 }],
+        [2,  { label: "事業所", address: "東京都千代田区神田神保町2-20 SP神保町第2ビル4階", lat: 35.697433, lng: 139.756393 }],
+        [3,  { label: "本社", address: "東京都文京区小石川5-2-2", lat: 35.716084, lng: 139.739410 }],
+        [4,  { label: "事業所", address: "東京都渋谷区上原1-3-9", lat: 35.667953, lng: 139.686340 }],
+        [5,  { label: "事業所", address: "東京都豊島区目白4-29-2", lat: 35.725555, lng: 139.698425 }],
+        [6,  { label: "事業所", address: "東京都港区高輪3-11-5 イマス高輪ビル6階", lat: 35.631275, lng: 139.730331 }],
+        [7,  { label: "事業所", address: "東京都渋谷区千駄ヶ谷3-3-16 秀和神宮レジデンス505・506", lat: 35.675480, lng: 139.705597 }],
+        [8,  { label: "東京オフィス", address: "東京都豊島区西池袋1-18-2 藤久ビル西1号館7階", lat: 35.731247, lng: 139.709106 }],
+        [9,  { label: "本社", address: "東京都渋谷区広尾5-6-6", lat: 35.649994, lng: 139.722321 }],
+        [10, { label: "本社", address: "東京都渋谷区広尾5-6-6", lat: 35.649994, lng: 139.722321 }],
+        [11, { label: "本社", address: "東京都港区六本木5-2-3 マガジンハウス六本木ビル7階", lat: 35.662334, lng: 139.733658 }],
+        [12, { label: "本社", address: "東京都渋谷区南平台町1-10 いちご南平台ビル601", lat: 35.655895, lng: 139.696991 }],
+        [13, { label: "本社", address: "東京都台東区元浅草2-6-7 マタイビル2F", lat: 35.709919, lng: 139.782684 }],
+        [14, { label: "東京本部", address: "東京都港区赤坂1-12-32 アーク森ビル13階", lat: 35.667343, lng: 139.741302 }],
+        [15, { label: "事業所", address: "東京都千代田区五番町10-7-2F", lat: 35.689857, lng: 139.734955 }],
+        [16, { label: "事業所", address: "東京都港区元赤坂1-1-7-612", lat: 35.678165, lng: 139.734344 }],
+        [17, { label: "東京本社", address: "東京都渋谷区道玄坂1-15-6", lat: 35.657001, lng: 139.697739 }],
+        [18, { label: "東京支社", address: "東京都港区新橋4-31-3 第3名和ビル7階", lat: 35.664787, lng: 139.753448 }],
+        [19, { label: "本部", address: "東京都千代田区神田神保町1-14-1 KDX神保町ビル4F", lat: 35.696732, lng: 139.758148 }],
+        [20, { label: "本社", address: "東京都新宿区新宿1-28-3 TSG御苑ビル8F", lat: 35.690723, lng: 139.713165 }],
+        [21, { label: "本店", address: "東京都文京区本郷5-1-11 KIIHOUSE202", lat: 35.708778, lng: 139.760086 }],
+        [22, { label: "東京本部", address: "東京都港区南青山3-1-30", lat: 35.668217, lng: 139.715881 }],
+        [23, { label: "事業所", address: "東京都港区赤坂4-5-21-423", lat: 35.674492, lng: 139.734375 }],
+        [24, { label: "東京事業所", address: "東京都中央区日本橋本石町3-3-16 日本橋室町ビル502", lat: 35.687443, lng: 139.771301 }],
+        [25, { label: "事業所", address: "東京都千代田区神田神保町2-11-15 住友商事神保町ビル2F", lat: 35.695381, lng: 139.756638 }],
+        [26, { label: "こぐまハウス", address: "東京都目黒区目黒本町6-21-10", lat: 35.620052, lng: 139.692932 }],
+        [27, { label: "本社", address: "東京都中央区日本橋室町1-11-12 日本橋水野ビル7階", lat: 35.685505, lng: 139.775772 }],
+        [28, { label: "事業所", address: "東京都東村山市栄町2-9-32 晃正ビル301", lat: 35.749828, lng: 139.471283 }],
+        [29, { label: "事業所", address: "東京都杉並区宮前3-4-12-2F", lat: 35.694195, lng: 139.608231 }],
+        [30, { label: "本社", address: "東京都新宿区西新宿7-1-12 クロスオフィス", lat: 35.694798, lng: 139.699112 }],
+        [31, { label: "事業所", address: "東京都世田谷区北沢3-26-4 栃倉ビル202", lat: 35.663887, lng: 139.668121 }],
+        [32, { label: "保育事業課", address: "東京都新宿区西新宿1-20-3 西新宿髙木ビル3階", lat: 35.687843, lng: 139.696136 }],
+        [33, { label: "事業所", address: "東京都港区北青山1-3-1 アールキューブ青山3階", lat: 35.672512, lng: 139.722733 }],
+        [34, { label: "本社", address: "東京都港区南青山3-1-36 青山丸竹ビル6F", lat: 35.668217, lng: 139.715881 }],
+        [35, { label: "事業所", address: "東京都豊島区雑司が谷1-15-11", lat: 35.720444, lng: 139.718765 }],
+        [36, { label: "事業所", address: "東京都中央区銀座7-13-6", lat: 35.667824, lng: 139.764572 }],
+        [37, { label: "本店", address: "東京都杉並区永福4-19-19 カーサ沙羅501", lat: 35.680515, lng: 139.638245 }]
+      ]);
+      const individualSearchServices = [
+        {
+          providerId: 10,
+          url: "https://smartsitter.jp/sitters?city_id=13203&purpose=babysitter&state_id=13000",
+          button: "個人プロフィールを見る",
+          note: "武蔵野市対応の個人プロフィールを検索できます。公式画面で「一時預かり」対応と希望日時の空きを確認してください。"
+        },
+        {
+          providerId: 11,
+          url: "https://kidsline.me/sitter/tokyo/132039",
+          button: "個人サポーターを見る",
+          note: "利用申込の完了後、「東京都一時預かり対象」で絞り込めます。希望日時と対応年齢を公式画面で指定してください。"
+        }
+      ];
+      const defaultProviders = data.providers.slice().sort((a, b) => Number(hasDetails(b)) - Number(hasDetails(a)) || a.id - b.id);
+      let rankedProviders = defaultProviders;
+      let searchOrigin = null;
+      let requestContext = null;
+      const list = document.getElementById("provider-list");
+      const resultCount = document.getElementById("result-count");
+      const empty = document.getElementById("empty");
+      const checkboxes = [...document.querySelectorAll("#filters input")];
+      const addressForm = document.getElementById("address-form");
+      const addressInput = document.getElementById("address");
+      const findButton = document.getElementById("find-button");
+      const locationButton = document.getElementById("location-button");
+      const searchStatus = document.getElementById("search-status");
+      const nearestResult = document.getElementById("nearest-result");
+      const individualSection = document.getElementById("individual-section");
+      const individualResults = document.getElementById("individual-results");
+      const requestSummary = document.getElementById("request-summary");
+      const requestDate = document.getElementById("request-date");
+      const startTime = document.getElementById("start-time");
+      const endTime = document.getElementById("end-time");
+      const childAge = document.getElementById("child-age");
+      const needSick = document.getElementById("need-sick");
+      const needDisabled = document.getElementById("need-disabled");
+
+      function hasDetails(provider) {
+        return ["price", "admission_fee", "annual_fee", "min_hours", "cancellation"].some((key) => Boolean(provider[key]));
+      }
+
+      function isNone(value) {
+        return typeof value === "string" && /^(無|なし)$/.test(value.trim());
+      }
+
+      function isUnknown(value) {
+        return !value || /無回答|要確認|不明/.test(String(value));
+      }
+
+      function supports(value) {
+        return !isUnknown(value) && !isNone(value);
+      }
+
+      function noMembershipFee(provider) {
+        return isNone(provider.admission_fee) && isNone(provider.annual_fee);
+      }
+
+      function el(tag, className, text) {
+        const node = document.createElement(tag);
+        if (className) node.className = className;
+        if (text !== undefined) node.textContent = text;
+        return node;
+      }
+
+      function addLink(parent, href, label) {
+        const link = el("a", null, label);
+        link.href = href;
+        link.target = "_blank";
+        link.rel = "noopener noreferrer";
+        parent.append(link);
+      }
+
+      function formatRequestDate(value) {
+        if (!value) return "日付未指定";
+        const [year, month, day] = value.split("-").map(Number);
+        return `${year}年${month}月${day}日`;
+      }
+
+      function readRequestContext(originLabel) {
+        return {
+          address: addressInput.value.trim() || originLabel,
+          date: requestDate.value,
+          start: startTime.value,
+          end: endTime.value,
+          age: childAge.value,
+          sick: needSick.checked,
+          disabled: needDisabled.checked
+        };
+      }
+
+      function validateRequestDetails() {
+        for (const field of [requestDate, startTime, endTime, childAge]) {
+          if (!field.reportValidity()) return false;
+        }
+        if (startTime.value >= endTime.value) {
+          showSearchStatus("終了時刻は開始時刻より後にしてください。日をまたぐ利用は事業者へ直接ご相談ください。", true);
+          endTime.focus();
+          return false;
+        }
+        return true;
+      }
+
+      function requestNeeds(context) {
+        const needs = [];
+        if (context.sick) needs.push("病児・病後児対応");
+        if (context.disabled) needs.push("障害児対応");
+        if (context.start < "07:00" || context.end > "22:00") needs.push("夜間対応");
+        return needs;
+      }
+
+      function buildRequestText(provider) {
+        const context = requestContext;
+        if (!context) return "";
+        const needs = requestNeeds(context);
+        return [
+          `${provider ? `${provider.name} ご担当者様` : "ベビーシッター事業者 ご担当者様"}`,
+          "武蔵野市のベビーシッター利用支援事業（一時預かり利用支援）を利用したく、対象シッター個人の候補を確認したいです。",
+          `利用場所：${context.address}`,
+          `希望日時：${formatRequestDate(context.date)} ${context.start}〜${context.end}`,
+          `子どもの年齢：${context.age}`,
+          `必要な対応：${needs.length ? needs.join("、") : "特になし"}`,
+          "この条件で訪問可能かつ補助対象となるシッターの氏名または公開プロフィール、料金、空き状況をご案内ください。"
+        ].join("\n");
+      }
+
+      async function copyText(text) {
+        if (navigator.clipboard && window.isSecureContext) {
+          await navigator.clipboard.writeText(text);
+          return;
+        }
+        const textarea = document.createElement("textarea");
+        textarea.value = text;
+        textarea.style.position = "fixed";
+        textarea.style.opacity = "0";
+        document.body.append(textarea);
+        textarea.select();
+        const copied = document.execCommand("copy");
+        textarea.remove();
+        if (!copied) throw new Error("コピーできませんでした");
+      }
+
+      function renderIndividualSearch() {
+        requestSummary.replaceChildren();
+        const summary = el("p", null, `${formatRequestDate(requestContext.date)} ${requestContext.start}〜${requestContext.end}・${requestContext.age}・${requestNeeds(requestContext).join("、") || "追加条件なし"}`);
+        const copy = el("button", "copy-all", "問い合わせ条件をコピー");
+        copy.type = "button";
+        copy.addEventListener("click", async () => {
+          try {
+            await copyText(buildRequestText(null));
+            copy.textContent = "コピーしました";
+            window.setTimeout(() => { copy.textContent = "問い合わせ条件をコピー"; }, 1800);
+          } catch (_) {
+            showSearchStatus("条件をコピーできませんでした。端末の設定をご確認ください。", true);
+          }
+        });
+        requestSummary.append(summary, copy);
+
+        const fragment = document.createDocumentFragment();
+        individualSearchServices.forEach((service) => {
+          const provider = data.providers.find((item) => item.id === service.providerId);
+          const card = el("article", "individual-card");
+          card.append(
+            el("span", "method-badge", "個人を公開検索できる"),
+            el("h3", null, provider.name),
+            el("p", null, service.note)
+          );
+          const link = el("a", "individual-action", service.button);
+          link.href = service.url;
+          link.target = "_blank";
+          link.rel = "noopener noreferrer";
+          link.setAttribute("aria-label", `${provider.name}で武蔵野市対応の個人プロフィールを開く`);
+          card.append(link);
+          fragment.append(card);
+        });
+
+        const coordinatorCard = el("article", "individual-card");
+        coordinatorCard.append(
+          el("span", "method-badge coordinator", "担当者が個人を選定"),
+          el("h3", null, "ほか35社にも同じ条件で確認"),
+          el("p", null, "個人名や空き状況を一般公開していない事業者です。下の一覧から近い事業者を選び、コピーした条件を電話や公式サイトで伝えられます。")
+        );
+        const jump = el("a", "individual-action", "近い事業者を見る");
+        jump.href = "#provider-list";
+        coordinatorCard.append(jump);
+        fragment.append(coordinatorCard);
+
+        individualResults.replaceChildren(fragment);
+        individualSection.hidden = false;
+      }
+
+      function renderSubsidy() {
+        const subsidy = data.musashino_subsidy;
+        const card = document.getElementById("subsidy-card");
+        const main = el("div", "subsidy-main");
+        [
+          ["対象", subsidy.target],
+          ["利用上限", subsidy.hours_limit],
+          ["日中の助成", subsidy.subsidy_day],
+          ["夜間の助成", subsidy.subsidy_night]
+        ].forEach(([label, value]) => {
+          const item = el("div", "subsidy-item");
+          item.append(el("span", "subsidy-label", label), el("span", "subsidy-value", value));
+          main.append(item);
+        });
+        const foot = el("div", "subsidy-foot");
+        foot.append(el("p", null, `対象外：${subsidy.not_covered}`), el("p", null, subsidy.note));
+        const source = el("p");
+        source.append("制度の詳細：");
+        addLink(source, subsidy.source, "武蔵野市公式ページ");
+        foot.append(source);
+        card.append(main, foot);
+      }
+
+      function addFact(dl, label, value) {
+        const row = el("div", "fact");
+        row.append(el("dt", null, label), el("dd", null, value || "情報なし"));
+        dl.append(row);
+      }
+
+      function capability(label, value, icon) {
+        const state = isUnknown(value) ? "unknown" : (supports(value) ? "yes" : "no");
+        const display = isUnknown(value) ? "情報なし" : value;
+        const item = el("li", `capability ${state}`);
+        item.title = `${label}：${display}`;
+        item.setAttribute("aria-label", `${label}：${display}`);
+        item.append(document.createTextNode(`${state === "yes" ? icon : state === "no" ? "—" : "?"} ${label}`));
+        return item;
+      }
+
+      function renderCard(provider) {
+        const detailed = hasDetails(provider);
+        const article = el("article", `provider-card${detailed ? "" : " no-details"}${provider._rank === 1 ? " nearest" : ""}`);
+        article.dataset.id = provider.id;
+        if (searchOrigin) {
+          const rankLine = el("div", "rank-line");
+          rankLine.append(
+            el("span", "rank-badge", provider._rank === 1 ? "最寄り候補" : `${provider._rank}番目`),
+            el("span", "distance-badge", `事業所所在地からの距離（参考）：${formatDistance(provider._distance)}`)
+          );
+          article.append(rankLine);
+        }
+        article.append(el("h3", null, provider.name));
+        if (provider.former_name) article.append(el("p", "former-name", `旧称：${provider.former_name}`));
+        const office = providerLocations.get(provider.id);
+        article.append(el("p", "office-location", `公開事業拠点（${office.label}）：${office.address}`));
+        article.append(el("p", "price", provider.price || "料金情報なし"));
+
+        const facts = el("dl", "facts");
+        addFact(facts, "入会金", provider.admission_fee);
+        addFact(facts, "年会費等", provider.annual_fee);
+        addFact(facts, "最低利用時間", provider.min_hours);
+        addFact(facts, "キャンセル料", provider.cancellation);
+        article.append(facts);
+
+        const caps = el("ul", "capabilities");
+        caps.append(
+          capability("病児", provider.sick_child, "✚"),
+          capability("夜間", provider.night_care, "☾"),
+          capability("障害児", provider.disabled_child, "♡")
+        );
+        article.append(caps);
+
+        if (provider.detail_note) article.append(el("p", "detail-note", provider.detail_note));
+        if (!detailed) {
+          const note = el("p", "source-note");
+          note.append(el("strong", null, "詳細情報なし　"), document.createTextNode(provider.detail_source));
+          article.append(note);
+        }
+
+        const individualService = individualSearchServices.find((service) => service.providerId === provider.id);
+        const booking = el("div", "booking-method");
+        if (individualService) {
+          booking.append(
+            el("span", "method-badge", "個人プロフィール検索あり"),
+            el("p", null, "公式検索で、シッター個人の公開プロフィールと空き状況を確認できます。補助対象の表示も必ず確認してください。")
+          );
+        } else {
+          booking.append(
+            el("span", "method-badge coordinator", "個人候補は事業者が回答"),
+            el("p", null, "公開情報から個人を特定できません。利用条件を伝え、補助対象シッターの氏名または公開プロフィールを確認してください。")
+          );
+        }
+        article.append(booking);
+
+        const actions = el("div", "actions");
+        if (provider.phone) {
+          const phone = el("a", "action", `電話 ${provider.phone}`);
+          phone.href = `tel:${provider.phone.replace(/[^0-9+]/g, "")}`;
+          phone.setAttribute("aria-label", `${provider.name}へ電話 ${provider.phone}`);
+          actions.append(phone);
+        } else {
+          actions.append(el("span", "action disabled", "電話情報なし"));
+        }
+        if (provider.url) {
+          const site = el("a", "action primary", "公式サイト");
+          site.href = provider.url;
+          site.target = "_blank";
+          site.rel = "noopener noreferrer";
+          site.setAttribute("aria-label", `${provider.name}の公式サイトを開く`);
+          actions.append(site);
+        } else {
+          actions.append(el("span", "action disabled", "サイト情報なし"));
+        }
+        if (individualService) {
+          const profiles = el("a", "action primary full", "シッター個人を探す");
+          profiles.href = individualService.url;
+          profiles.target = "_blank";
+          profiles.rel = "noopener noreferrer";
+          profiles.setAttribute("aria-label", `${provider.name}の個人プロフィール検索を開く`);
+          actions.append(profiles);
+        } else if (requestContext) {
+          const copyRequest = el("button", "action full", "この事業者への確認文をコピー");
+          copyRequest.type = "button";
+          copyRequest.addEventListener("click", async () => {
+            try {
+              await copyText(buildRequestText(provider));
+              copyRequest.textContent = "コピーしました";
+              window.setTimeout(() => { copyRequest.textContent = "この事業者への確認文をコピー"; }, 1800);
+            } catch (_) {
+              showSearchStatus("確認文をコピーできませんでした。端末の設定をご確認ください。", true);
+            }
+          });
+          actions.append(copyRequest);
+        }
+        article.append(actions);
+        return article;
+      }
+
+      const filterTests = {
+        noMembershipFee,
+        sickChild: (provider) => supports(provider.sick_child),
+        nightCare: (provider) => supports(provider.night_care),
+        sameDay: (provider) => provider.same_day_booking === true,
+        disabledChild: (provider) => supports(provider.disabled_child),
+        details: hasDetails
+      };
+
+      function renderProviders() {
+        const active = checkboxes.filter((box) => box.checked).map((box) => box.value);
+        const shown = rankedProviders.filter((provider) => active.every((key) => filterTests[key](provider)));
+        const fragment = document.createDocumentFragment();
+        shown.forEach((provider) => fragment.append(renderCard(provider)));
+        list.replaceChildren(fragment);
+        resultCount.textContent = `${shown.length} / ${data.providers.length}社${searchOrigin ? "・近い順" : ""}`;
+        empty.hidden = shown.length !== 0;
+      }
+
+      function distanceKm(from, to) {
+        const toRad = (degrees) => degrees * Math.PI / 180;
+        const earthRadius = 6371.0088;
+        const dLat = toRad(to.lat - from.lat);
+        const dLng = toRad(to.lng - from.lng);
+        const a = Math.sin(dLat / 2) ** 2 + Math.cos(toRad(from.lat)) * Math.cos(toRad(to.lat)) * Math.sin(dLng / 2) ** 2;
+        return earthRadius * 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+      }
+
+      function formatDistance(distance) {
+        return distance < 1 ? `${Math.round(distance * 1000)}m` : `${distance.toFixed(1)}km`;
+      }
+
+      function setSearchBusy(busy) {
+        findButton.disabled = busy;
+        locationButton.disabled = busy;
+        findButton.textContent = busy ? "検索中…" : "個人候補を探す";
+      }
+
+      function showSearchStatus(message, isError = false) {
+        searchStatus.hidden = false;
+        searchStatus.className = `search-status${isError ? " error" : ""}`;
+        searchStatus.textContent = message;
+      }
+
+      function rankFrom(origin, originLabel) {
+        searchOrigin = { ...origin, label: originLabel };
+        requestContext = readRequestContext(originLabel);
+        if (requestContext.sick) document.querySelector('#filters input[value="sickChild"]').checked = true;
+        if (requestContext.disabled) document.querySelector('#filters input[value="disabledChild"]').checked = true;
+        if (requestContext.start < "07:00" || requestContext.end > "22:00") document.querySelector('#filters input[value="nightCare"]').checked = true;
+        rankedProviders = data.providers
+          .map((provider) => ({ ...provider, _distance: distanceKm(origin, providerLocations.get(provider.id)) }))
+          .sort((a, b) => a._distance - b._distance || a.id - b.id)
+          .map((provider, index) => ({ ...provider, _rank: index + 1 }));
+
+        const nearest = rankedProviders[0];
+        const nearestOffice = providerLocations.get(nearest.id);
+        nearestResult.replaceChildren();
+        nearestResult.append(
+          el("p", "nearest-kicker", "事業所所在地からの距離（参考）"),
+          el("h3", null, nearest.name),
+          el("p", null, `${nearestOffice.label}まで直線 ${formatDistance(nearest._distance)}。これはシッター本人までの距離ではありません。個人プロフィール検索または事業者への確認で担当者を確定してください。`)
+        );
+        nearestResult.hidden = false;
+        renderIndividualSearch();
+        renderProviders();
+        showSearchStatus(`${originLabel}を基準に検索しました。個人を公開検索できる2社と、認定37社の確認先を表示しています。`);
+        individualSection.scrollIntoView({ behavior: "smooth", block: "start" });
+      }
+
+      async function geocodeAddress(address) {
+        const response = await fetch(`https://msearch.gsi.go.jp/address-search/AddressSearch?q=${encodeURIComponent(address)}`);
+        if (!response.ok) throw new Error("住所検索サービスに接続できませんでした");
+        const results = await response.json();
+        if (!Array.isArray(results) || results.length === 0) throw new Error("住所を見つけられませんでした。市名・町名・番地をご確認ください");
+        const [lng, lat] = results[0].geometry.coordinates;
+        return { lat, lng, label: results[0].properties.title };
+      }
+
+      addressForm.addEventListener("submit", async (event) => {
+        event.preventDefault();
+        if (!validateRequestDetails()) return;
+        const address = addressInput.value.trim();
+        if (!address) return;
+        setSearchBusy(true);
+        showSearchStatus("住所を確認しています…");
+        try {
+          const result = await geocodeAddress(address);
+          rankFrom({ lat: result.lat, lng: result.lng }, result.label);
+        } catch (error) {
+          showSearchStatus(error.message || "住所を検索できませんでした", true);
+        } finally {
+          setSearchBusy(false);
+        }
+      });
+
+      locationButton.addEventListener("click", () => {
+        if (!validateRequestDetails()) return;
+        if (!navigator.geolocation) {
+          showSearchStatus("この端末では現在地を利用できません。住所を入力してください。", true);
+          return;
+        }
+        setSearchBusy(true);
+        showSearchStatus("現在地を確認しています…");
+        navigator.geolocation.getCurrentPosition(
+          (position) => {
+            addressInput.value = "";
+            rankFrom({ lat: position.coords.latitude, lng: position.coords.longitude }, "現在地（住所は問い合わせ時にお伝えください）");
+            setSearchBusy(false);
+          },
+          () => {
+            showSearchStatus("現在地を取得できませんでした。端末の位置情報設定を確認するか、住所を入力してください。", true);
+            setSearchBusy(false);
+          },
+          { enableHighAccuracy: false, timeout: 10000, maximumAge: 300000 }
+        );
+      });
+
+      function renderFooter() {
+        const footer = document.getElementById("footer-content");
+        footer.append(el("h2", null, "ご利用前にご確認ください"));
+        footer.append(el("p", null, data.disclaimer));
+        const notes = el("ul");
+        data.data_notes.forEach((note) => {
+          const item = el("li");
+          const match = note.match(/^(.*?)(https?:\/\/\S+)$/);
+          if (match) {
+            item.append(document.createTextNode(match[1]));
+            addLink(item, match[2], match[2]);
+          } else {
+            item.textContent = note;
+          }
+          notes.append(item);
+        });
+        footer.append(notes);
+        const source = el("p");
+        source.append(`東京都認定事業者一覧（取得日：${data.retrieved}）：`);
+        addLink(source, data.source_url, data.source);
+        footer.append(source);
+        const citySource = el("p");
+        citySource.append("武蔵野市の制度出典：");
+        addLink(citySource, data.musashino_subsidy.source, "武蔵野市 ベビーシッター利用支援事業（一時預かり利用支援）");
+        footer.append(citySource);
+        const locationSource = el("p");
+        locationSource.append("拠点所在地照合：");
+        addLink(locationSource, "tachiirikekkatou_260401.pdf", "世田谷区 認定事業者への立入調査結果等（令和8年4月1日現在）");
+        locationSource.append("（現在の37社と重なる33社）および");
+        addLink(locationSource, "https://www.fukushi.metro.tokyo.lg.jp/documents/d/fukushi/2026-04-09-095335-917", "東京都 認可外保育施設一覧（居宅訪問型事業）");
+        locationSource.append("、各事業者公式サイトを2026年7月14日に確認。住所座標化：");
+        addLink(locationSource, "https://maps.gsi.go.jp/", "国土地理院 地理院地図");
+        locationSource.append("。#34は公式サイト会社概要等、#37は");
+        addLink(locationSource, "https://www.houjin-bangou.nta.go.jp/", "国税庁 法人番号公表サイト（法人番号2011301030237）");
+        locationSource.append("で本店所在地を確認。");
+        footer.append(locationSource);
+        const profileSource = el("p");
+        profileSource.append("個人プロフィール検索：");
+        addLink(profileSource, "https://smartsitter.jp/sitters?city_id=13203&purpose=babysitter&state_id=13000", "ポピンズシッター 武蔵野市検索");
+        profileSource.append("、");
+        addLink(profileSource, "https://kidsline.me/sitter/tokyo/132039", "キッズライン 武蔵野市検索");
+        profileSource.append("（2026年7月14日確認）。個人の氏名・公開名、対応条件、空き状況は各社の公式画面でのみ確認します。");
+        footer.append(profileSource);
+        footer.append(el("p", null, "距離は入力地点と各社が公開する本社・支社・事業所等との直線距離です。シッター本人の所在地、移動時間、派遣可否、現在の空き状況を示すものではありません。"));
+        footer.append(el("p", "final-warning", "最新情報は必ず各事業者・武蔵野市公式ページでご確認ください"));
+      }
+
+      checkboxes.forEach((box) => box.addEventListener("change", renderProviders));
+      document.getElementById("clear-filters").addEventListener("click", () => {
+        checkboxes.forEach((box) => { box.checked = false; });
+        renderProviders();
+      });
+
+      const today = new Date();
+      const todayValue = `${today.getFullYear()}-${String(today.getMonth() + 1).padStart(2, "0")}-${String(today.getDate()).padStart(2, "0")}`;
+      requestDate.min = todayValue;
+      requestDate.value = todayValue;
+
+      renderSubsidy();
+      renderProviders();
+      renderFooter();
+    })();
+  </script>
+</body>
+</html>
