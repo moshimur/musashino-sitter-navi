@@ -57,3 +57,11 @@ Cloudflare Pagesなどの静的ホスティングにも配置できます。
 
 **最新情報は必ず各事業者・武蔵野市・東京都の公式ページでご確認ください。**
 
+## ライセンス
+
+`moshimur` が著作権を有する本リポジトリのソースコードは、[GNU Affero General Public License v3.0 only](LICENSE)（`AGPL-3.0-only`）で提供します。改変した版をネットワーク越しに利用者へ提供する場合を含め、ライセンスが定める条件に従って対応するソースコードを提供してください。
+
+行政機関・各事業者など第三者に由来するデータ、文書、名称、ロゴその他の素材には、それぞれの権利・利用条件が適用されます。これらをAGPLで再許諾するものではありません。再利用前に [DATA_SOURCES.md](DATA_SOURCES.md) と [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md) を確認してください。
+
+Copyright (C) 2026 moshimur
+
